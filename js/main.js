@@ -38,11 +38,20 @@ async function checkFetch() {
 const doChecks = async (e) => {
   setConnectionData(getConnectionData())
   await checkFetch().then(setMessage)
+  setNavigatorOnline(navigator.onLine)
   setTime()
 };
-
+function setNavigatorOnline(val) {
+  navonline.innerHTML = val ? 'true' : 'false'
+}
 navigator?.connection?.addEventListener('change', doChecks);
 window.addEventListener('load', doChecks)
 window.addEventListener('focus', doChecks)
 
+window.addEventListener('offline', (e) => {
+  setNavigatorOnline(false)
+});
+window.addEventListener('online', (e) => {
+  setNavigatorOnline(true)
+});
 
