@@ -16,6 +16,10 @@ function setConnectionData(data) {
 const setMessage = (msg) => {
   onlinestatus.innerHTML = msg
 }
+const setTime = () => {
+  let date = new Date();
+  time.innerHTML = "@ " + date.getHours() + ':' + date.getMinutes()
+}
 
 async function checkFetch() {
   return fetch('/').then(r => {
@@ -34,8 +38,11 @@ async function checkFetch() {
 const doChecks = async (e) => {
   setConnectionData(getConnectionData())
   await checkFetch().then(setMessage)
+  setTime()
 };
 
 navigator?.connection?.addEventListener('change', doChecks);
 window.addEventListener('load', doChecks)
+window.addEventListener('focus', doChecks)
+
 
